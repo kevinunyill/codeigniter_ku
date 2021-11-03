@@ -64,14 +64,36 @@
               foreach($daftar_orang as $baris) { 
                   ?>
                     <tr>
-                      <th scope="row">1</th>
+                      <th scope="row"><?php echo $baris->id ?></th>
                       <td><?php echo $baris->nama ?></td>
                       <td><?php echo $baris->alamat ?></td>
                       <td>
-                          <button class="btn btn-secondary" type="submit">Ubah</button>
-                          <button class="btn btn-dark" type="submit">Hapus</button>
+                          <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ubahModal<?php echo $baris->id ?>">Ubah</button>
+                          <a class="btn btn-dark" href="welcome/hapusorang/<?php echo $baris->id ?>">Hapus</a>
                       </td>
                     </tr>
+
+                    <div class="modal fade" id="ubahModal<?php echo $baris->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">orang</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="Welcome/ubahOrang" method="post">
+              <div class="modal-body">
+              <input type="hidden" name="id" value="<?php echo $baris->id ?>">
+                <input type="text" name="nama" class="form-control" value="<?php echo $baris->nama ?>">
+                <br>
+                <input type="text" name="alamat" class="form-control" value="<?php echo $baris->alamat ?>">   
+              </div>
+              <div class="modal-footer" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
                   <?php
                 } 
             ?>
@@ -79,27 +101,28 @@
         </tbody>
       </table>
 
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">orang</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="index.php/Welcome/TambahOrang" method="post">
+            <form action="Welcome/TambahOrang" method="post">
               <div class="modal-body">
                 <input type="text" name="nama" class="form-control">
                 <br>
                 <input type="text" name="alamat" class="form-control">   
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <div class="modal-footer" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save changes</button>
               </div>
             </form>
           </div>
         </div>
       </div>
+
     </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
 </html>
